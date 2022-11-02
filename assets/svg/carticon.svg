@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="MDI_cart" data-name="MDI / cart" opacity="0.6">
+    <g id="Boundary" fill="#847e7e" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="26" height="26" stroke="none"/>
+      <rect x="0.5" y="0.5" width="25" height="25" fill="none"/>
+    </g>
+    <path id="Path_cart" data-name="Path / cart" d="M18.6,19.6a2.2,2.2,0,1,0,2.2,2.2,2.192,2.192,0,0,0-2.2-2.2M1,2V4.2H3.2l3.96,8.349-1.5,2.695A2.242,2.242,0,0,0,5.4,16.3a2.2,2.2,0,0,0,2.2,2.2H20.8V16.3H8.062a.275.275,0,0,1-.275-.275.235.235,0,0,1,.033-.132L8.81,14.1h8.2a2.212,2.212,0,0,0,1.925-1.133L22.868,5.85A1.391,1.391,0,0,0,23,5.3a1.1,1.1,0,0,0-1.1-1.1H5.631L4.6,2m3,17.6a2.2,2.2,0,1,0,2.2,2.2A2.192,2.192,0,0,0,7.6,19.6Z" transform="translate(1)" fill="#847e7e"/>
+  </g>
+</svg>

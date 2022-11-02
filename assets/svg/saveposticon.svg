@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#25f"/>
+      <stop offset="1" stop-color="#1477ff"/>
+    </linearGradient>
+  </defs>
+  <g id="MDI_bookmark" data-name="MDI / bookmark" opacity="0.6">
+    <g id="Boundary" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0" fill="url(#linear-gradient)">
+      <rect width="26" height="26" stroke="none"/>
+      <rect x="0.5" y="0.5" width="25" height="25" fill="none"/>
+    </g>
+    <path id="Path_bookmark" data-name="Path / bookmark" d="M18,3H7.167A2.167,2.167,0,0,0,5,5.167V22.5l7.583-3.25,7.583,3.25V5.167A2.166,2.166,0,0,0,18,3Z" transform="translate(0.417 0.25)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
