@@ -54,7 +54,7 @@ class _BooksLibraryState extends State<BooksLibrary> {
 
     //this.students = await TransactionService.
     //              transactionInstance.getUserTransactions(1);
-    this.books_data = UploadService().getUserBooks();
+    this.books_data = UploadService().getAllBooks();
     print('books_data');
     // var books_data2 = books_data as Map;
     books_data.then((value) => {
@@ -99,10 +99,14 @@ class _BooksLibraryState extends State<BooksLibrary> {
                                 username: user.full_name,
                                 newlyRegistered: true,
                                 bookLib: false,
-                                lab: true,
+                                library: userInfoData.library == false
+                                    ? false
+                                    : true,
+                                lab: userInfoData.lab == false ? false : true,
                                 classRoom: true,
-                                chat: true,
+                                chat: userInfoData.chat == false ? false : true,
                                 regAt: 'regAt');
+                            ;
                             AuthService.setIsNewUser(userModel);
                             MyNavigate.navigatejustpush(AddToBooks(), context);
                           },
@@ -205,7 +209,7 @@ class _BooksLibraryState extends State<BooksLibrary> {
                                 child: Padding(
                                     padding: EdgeInsets.all(20),
                                     child: textField())),
-                            book_items_map['books'].length != 0
+                            book_items_map['books'].length == 0
                                 ? NothingYetWidget(
                                     pageTitle: '',
                                     pageHeader: "No Books Yet",
@@ -328,7 +332,7 @@ class _BooksLibraryState extends State<BooksLibrary> {
           ),
         ),
         Container(
-            height: 175.0,
+            height: 185.0,
             // width: size(context).width * 1.1,
             child: HorizontalListView(
               pageType: 'books',

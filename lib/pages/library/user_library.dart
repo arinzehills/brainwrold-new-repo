@@ -61,38 +61,41 @@ class _UserLibraryState extends State<UserLibrary> {
         key: _scaffoldKey,
         drawer: MyDrawer(),
         body: bookLength == 0
-            ? NothingYetWidget(
-                pageTitle: 'UPLOAD TO BOOKS LIBRARY',
-                pageHeader: "My Books Library",
-                pageContentText:
-                    'You can save your books here for future purposes,\n'
-                    'reference and books related to the courses you want\n to take or currently taking',
+            ? Center(
+                child: NothingYetWidget(
+                  pageTitle: 'UPLOAD TO BOOKS LIBRARY',
+                  pageHeader: "My Books Library",
+                  isFullPage: false,
+                  pageContentText:
+                      'You can save your books here for future purposes,\n'
+                      'reference and books related to the courses you want\n to take or currently taking. No books added yet',
+                ),
               )
             : Stack(
                 children: [
                   Container(
-                      padding: EdgeInsets.only(top: 50),
+                      padding: EdgeInsets.only(top: 15),
                       // color: Color.fromARGB(255, 13, 39, 127),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: myOrangeGradientTransparent)),
-                      height: size(context).height * 0.31,
+                      height: size(context).height * 0.18,
                       child: Column(
                         // mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          IconButton(
-                            onPressed: () =>
-                                _scaffoldKey.currentState?.openDrawer(),
-                            icon: SvgPicture.asset('assets/svg/menuicon.svg',
-                                height: 25,
-                                width: 25,
-                                color: Colors.white,
-                                semanticsLabel: 'A red up arrow'),
-                          ),
+                          // IconButton(
+                          //   onPressed: () =>
+                          //       _scaffoldKey.currentState?.openDrawer(),
+                          //   icon: SvgPicture.asset('assets/svg/menuicon.svg',
+                          //       height: 25,
+                          //       width: 25,
+                          //       color: Colors.white,
+                          //       semanticsLabel: 'A red up arrow'),
+                          // ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               ClipRRect(
                                   borderRadius:
@@ -108,13 +111,13 @@ class _UserLibraryState extends State<UserLibrary> {
                       )),
                   Align(
                       // top: 1,
-                      alignment: Alignment(0, -0.47),
+                      alignment: Alignment(0, -0.57),
                       child: Padding(
                           padding: EdgeInsets.all(20), child: textField())),
                   Padding(
                       // alignment: Alignment(0, size(context).height * 0.00069),
                       padding:
-                          EdgeInsets.only(top: size(context).height * 0.36),
+                          EdgeInsets.only(top: size(context).height * 0.25),
                       child: FutureBuilder(
                           future: books_data,
                           builder: (context, snapshot) {

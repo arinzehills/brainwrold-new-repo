@@ -105,13 +105,20 @@ class _ChatState extends State<Chat> {
   void socketServer() {
     try {
       //Configure socket Transport
-      socket = io(generalUrl, <String, dynamic>{
-        'transports': ['websocket'],
-        'autoConnect': false,
-        // 'forceNew': true
-      });
+      // socket = io(generalUrl, <String, dynamic>{
+      //   "transports": ["websocket"],
+      //   'autoConnect': false,
+      //   // 'forceNew': true
+      // });
+      socket = io(
+          generalUrl,
+          OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
+              .build());
       socket.connect();
       socket.on('connect', (data) => print('Connected:' + socket.id!));
+      socket.on('connect_error',
+          (error) => print('Connnection Error:' + error.message.toString()));
+      socket.on('error', (error) => print('Error:' + error.message.toString()));
     } catch (e) {
       print(e.toString());
     }

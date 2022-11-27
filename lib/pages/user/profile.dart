@@ -173,7 +173,7 @@ class _ProfileState extends State<Profile> {
                       padding: EdgeInsets.only(top: size.height * 0.17),
                       child: Center(
                           child: MyNetworkImage(
-                        imgUrl: user.profilePicture,
+                        imgUrl: user.profilePicture!,
                         height: 85,
                         width: 85,
                       )),

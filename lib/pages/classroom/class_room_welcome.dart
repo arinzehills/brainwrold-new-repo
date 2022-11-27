@@ -50,7 +50,7 @@ class _ClassRoomWelcomeState extends State<ClassRoomWelcome> {
 
     return Scaffold(
       drawer: MyDrawer(),
-      body: userInfoData.classRoom == true && !showIntroPage
+      body: showIntroPage && userInfoData.classRoom == true
           ? NothingYetWidget(
               pageTitle: 'WELCOME TO BRAINWORLD LECTURE THEATRE',
               pageHeader: "CLASS ROOM",
@@ -63,7 +63,8 @@ class _ClassRoomWelcomeState extends State<ClassRoomWelcome> {
                     id: user.id,
                     username: user.full_name,
                     newlyRegistered: true,
-                    bookLib: userInfoData.classRoom == false ? false : true,
+                    bookLib: userInfoData.bookLib == false ? false : true,
+                    library: userInfoData.library == false ? false : true,
                     lab: userInfoData.lab == false ? false : true,
                     classRoom: true,
                     chat: userInfoData.chat == false ? false : true,

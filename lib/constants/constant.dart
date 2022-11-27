@@ -4,6 +4,7 @@ import 'package:brainworld/components/utilities_widgets/my_navigate.dart';
 import 'package:brainworld/components/utilities_widgets/radial-gradient.dart';
 import 'package:brainworld/controllers/post_controller.dart';
 import 'package:brainworld/models/user.dart';
+import 'package:brainworld/pages/chats/models/cart_model.dart';
 import 'package:brainworld/pages/chats/models/posts_model.dart';
 import 'package:brainworld/pages/checkout/checkout.dart';
 import 'package:brainworld/pages/upload/course/course_desc.dart';
@@ -16,8 +17,8 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 final iconsColor = const Color(0xffC9C4C4);
 // final generalUrl = "http://10.0.2.2:3000";
-// final generalUrl = "http://localhost:3000";
-final generalUrl = "https://brainworld-api.cyclic.app";
+final generalUrl = "http://localhost:3000";
+// final generalUrl = "https://brainworld-api.cyclic.app";
 final textGreyColor = const Color(0xff4B4949);
 final transparentGrey = const Color(0xffC9C4C4);
 // final welcomepageBlue= const Color(0xff0837ff);
@@ -26,6 +27,10 @@ final myhomepageBlue = const Color(0xff2255FF);
 final myhomepageLightBlue = const Color(0xff1477FF);
 final myhomepageOrange = const Color(0xffFF5800);
 final myhomepageLightOrange = const Color(0xffFF1453);
+final mysocialblueGradient = [
+  Color.fromARGB(35, 34, 86, 255),
+  Color.fromARGB(65, 20, 118, 255)
+];
 final myblueGradient = [myhomepageBlue, myhomepageLightBlue];
 final myblueGradientTransparent = [
   myhomepageBlue.withOpacity(0.73),
@@ -66,6 +71,43 @@ GradientText generalGText({text, double? fontSize}) {
 Size size(context) => MediaQuery.of(context).size;
 User user(context) => Provider.of<User>(context, listen: false);
 
+//for loading pop up
+
+Future loadingStatus(context, text) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      content: Container(
+        height: 127,
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/girlwithpc.png',
+              height: 65,
+              width: 90,
+            ),
+            CircularProgressIndicator(
+              color: myhomepageBlue,
+            ),
+            SizedBox(
+              height: 7,
+            ),
+            Text(
+              'adding post...',
+              style: TextStyle(color: myhomepageBlue),
+            ),
+          ],
+        )),
+      ),
+    ),
+  );
+}
+
+//snackbar
 snackBar(page, context, text) {
   MyNavigate.navigatejustpush(page, context);
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -80,7 +122,8 @@ void seeDetailsModalBottomSheet(
     Socket? socket,
     required cartController}) {
   PostsModel course = postsController!.allPost[courseIndex!];
-
+  CartModel cartModel = CartModel.fromJson(course.toJson());
+  print(cartModel.user_id);
   showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -143,7 +186,7 @@ void seeDetailsModalBottomSheet(
                       isGradientButton: true,
                       gradientColors: myblueGradientTransparent,
                       pressed: () {
-                        cartController.addCourse(course);
+                        cartController.addCourse(cartModel);
                       },
                     ),
                   ],

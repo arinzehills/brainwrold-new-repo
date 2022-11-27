@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    var userId = Provider.of<User>(context, listen: false).id;
+    // var userId = Provider.of<User>(context, listen: false).id;
     super.initState();
     socketServer();
     getPostList();
@@ -64,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       socket.connect();
       socket.on('connect', (data) => print('Connected:' + socket.id!));
+      socket.on('connect_error',
+          (error) => print('Connnection Error:' + error.message.toString()));
+      socket.on('error', (error) => print('Error:' + error.message.toString()));
     } catch (e) {
       print(e.toString());
     }

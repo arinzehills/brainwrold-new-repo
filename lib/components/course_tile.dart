@@ -71,10 +71,11 @@ class _CoursesTileState extends State<CoursesTile> {
                   ProfileUserWidget(
                     userId: widget.post.user_id!,
                     // comment: 'Brain World',
-                    containerWidthRatio: 0.72,
+                    containerWidthRatio: 0.79,
                     imageUrl: widget.post.imageUrl,
                     imageHeight: 60,
                     imageWidth: 60,
+                    subTitle: widget.post.postedOn,
                   ),
                 ],
               ),

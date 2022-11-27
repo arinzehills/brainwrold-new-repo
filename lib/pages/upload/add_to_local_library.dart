@@ -143,7 +143,8 @@ class _AddToLocalLibrayState extends State<AddToLocalLibray> {
                             BookModel book = BookModel(
                                 category: category,
                                 title: title,
-                                filename: filename);
+                                filename: filename,
+                                price: '');
                             UploadService().uploadToLocal(
                               book,
                               file!,

@@ -108,7 +108,7 @@ class UploadService {
     );
     request.fields['usersId'] = user.id;
     request.headers['x-access-token'] = user.token!;
-    request.fields['title'] = bookModel.title!;
+    request.fields['title'] = bookModel.title;
     request.fields['category'] = bookModel.category!;
     request.fields['filename'] = bookModel.filename!;
     request.fields['createdAt'] = DateTime.now().toString();
@@ -135,9 +135,9 @@ class UploadService {
     );
     request.fields['usersId'] = user.id;
     request.headers['x-access-token'] = user.token!;
-    request.fields['title'] = bookModel.title!;
+    request.fields['title'] = bookModel.title;
     request.fields['category'] = bookModel.category!;
-    request.fields['price'] = bookModel.price!;
+    request.fields['price'] = bookModel.price;
     request.fields['filename'] = bookModel.filename!;
     request.fields['createdAt'] = DateTime.now().toString();
     request.files.add(imagemultipart);

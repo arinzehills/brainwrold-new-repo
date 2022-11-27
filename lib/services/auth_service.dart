@@ -11,9 +11,9 @@ import 'package:brainworld/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  // final liverurl = 'http://localhost:3000/';
+  final liverurl = '$generalUrl/';
   // final liverurl = 'http://10.0.2.2:3000/';
-  final liverurl = 'https://brainworld-api.cyclic.app/';
+  // final liverurl = 'https://brainworld-api.cyclic.app/';
   postData(data, apiUrl) async {
     print('dataup' + data.toString());
 
@@ -102,6 +102,7 @@ class AuthService {
                 newlyRegistered: true,
                 bookLib: true,
                 lab: true,
+                library: true,
                 classRoom: true,
                 chat: true,
                 regAt: 'regAt')

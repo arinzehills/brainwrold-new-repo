@@ -7,7 +7,7 @@ class Skeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8.0, 8, 0, 0),
         child: Container(
           padding: EdgeInsets.all(8),
           height: height,

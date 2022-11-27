@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:brainworld/constants/constant.dart';
 import 'package:brainworld/models/user.dart';
 import 'package:brainworld/pages/chats/models/isnewuser_data_model.dart';
@@ -30,4 +31,10 @@ Future getUserRegInfo() async {
   IsNewUserModel user = IsNewUserModel.fromJson(userJson);
 
   return userJson;
+}
+
+String generateRandomString(int len) {
+  var r = Random();
+  return String.fromCharCodes(
+      List.generate(len, (index) => r.nextInt(33) + 89));
 }

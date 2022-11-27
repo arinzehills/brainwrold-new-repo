@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {

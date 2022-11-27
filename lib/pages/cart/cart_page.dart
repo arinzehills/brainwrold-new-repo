@@ -1,4 +1,5 @@
 import 'package:brainworld/components/my_button.dart';
+import 'package:brainworld/components/profile_user_widget.dart';
 import 'package:brainworld/components/utilities_widgets/gradient_text.dart';
 import 'package:brainworld/components/utilities_widgets/my_navigate.dart';
 import 'package:brainworld/components/utilities_widgets/radial-gradient.dart';
@@ -6,10 +7,9 @@ import 'package:brainworld/constants/constant.dart';
 import 'package:brainworld/pages/checkout/checkout.dart';
 import 'package:brainworld/services/cart_service.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
+import 'package:iconly/iconly.dart';
 
 void showCartBottomSheet(context) {
   showModalBottomSheet(
@@ -18,7 +18,7 @@ void showCartBottomSheet(context) {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       builder: (context) {
-        return Container(child: MyCartWidget());
+        return MyCartWidget();
       });
 }
 
@@ -39,205 +39,55 @@ class _MyCartWidgetState extends State<MyCartWidget> {
   Widget build(BuildContext context) {
     final CartService cartController = Get.find();
 
-    // print(courses.price);
+    // print(cartItems.price);
     return Obx(
       () => Stack(
         children: [
-          cartController.courses.length != 0
+          cartController.cartItems.length != 0 //if cart is not empty
               ? Padding(
                   padding: const EdgeInsets.only(top: 35.0, bottom: 80),
                   child: ListView.builder(
-                      itemCount: cartController.courses.length,
+                      itemCount: cartController.cartItems.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.all(8),
                       //  padding: EdgeInsets.only(top: 10,bottom: 10),
                       physics: ScrollPhysics(),
                       itemBuilder: (context, index) {
-                        final courses = cartController.courses.keys.toList();
-                        return Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15.0, left: 10, right: 10, bottom: 10),
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withOpacity(0.1),
-                                        blurRadius: 30,
-                                        spreadRadius: 0,
-                                        offset: Offset(5, 20))
-                                  ]),
-                              child: Column(
-                                children: [
-                                  Row(
-                                      //the whole row of the container
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          //the row that container the image and the name
-                                          children: [
-                                            ClipRRect(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50)),
-                                                child: Image.asset(
-                                                  "assets/sciences.png",
-                                                  height: 70,
-                                                )),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  courses[index].courseTitle,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Row(//for name of author
-                                                    children: [
-                                                  Icon(
-                                                    Icons.person,
-                                                    color: Colors.grey,
-                                                    size: 15,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 2,
-                                                  ),
-                                                  Text(
-                                                    'admin',
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.grey),
-                                                  ),
-                                                ]),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ]),
-                                  SizedBox(
-                                    height: 0,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 12.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            cartController
-                                                .removeCourse(courses[index]);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.delete,
-                                                color: Colors.red,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Remove',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 18.0),
-                                          child: Text(
-                                            'NGN ' + courses[index].price,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ));
+                        final cartItems =
+                            cartController.cartItems.keys.toList();
+                        return cartListWidget(cartItems, index, cartController);
                       }),
                 )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              : Padding(
+                  //no items
+                  padding: const EdgeInsets.only(top: 88.0),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                              padding: const EdgeInsets.only(left: 13.0),
-                              child: GradientText('Your cart',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      myhomepageBlue,
-                                      myhomepageLightBlue
-                                    ],
-                                  ))),
-                          RadiantGradientMask(
-                            child: IconButton(
-                              icon: Icon(
-                                //  Icons.cabin,
-                                Icons.cancel_outlined,
-                                color: Colors.blue,
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
+                          Text(
+                            'No Items in cart',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Image.asset(
+                            'assets/images/dullbaby.png',
+                            height: 250,
+                            width: 290,
                           ),
                         ],
                       ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 14),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'No Items in cart',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: Colors.black),
-                              ),
-                              RadiantGradientMask(
-                                child: IconButton(
-                                  icon: Icon(
-                                    //  Icons.cabin,
-                                    Icons.cabin,
-                                    color: Colors.blue,
-                                    size: 80,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
+                    ),
+                  ),
+                ),
           //the header of the cart
           Align(
             alignment: Alignment.topCenter,
@@ -249,7 +99,7 @@ class _MyCartWidgetState extends State<MyCartWidget> {
                   Padding(
                       padding: const EdgeInsets.only(left: 13.0),
                       child: GradientText(
-                          'Your cart(${cartController.courses.length})',
+                          'Your cart(${cartController.cartItems.length})',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 20),
                           gradient: LinearGradient(
@@ -260,7 +110,7 @@ class _MyCartWidgetState extends State<MyCartWidget> {
                   ),
                   OutlineButton(
                     color: myhomepageBlue,
-                    disabledBorderColor: myhomepageBlue,
+                    disabledBorderColor: myhomepageLightOrange,
                     borderSide: BorderSide(color: myhomepageBlue),
                     onPressed: () {
                       cartController.removeAllCourses();
@@ -274,8 +124,8 @@ class _MyCartWidgetState extends State<MyCartWidget> {
                     child: IconButton(
                       icon: Icon(
                         //  Icons.cabin,
-                        Icons.cancel_outlined,
-                        color: Colors.blue,
+                        IconlyBold.close_square,
+                        color: myhomepageBlue,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
@@ -287,14 +137,15 @@ class _MyCartWidgetState extends State<MyCartWidget> {
             ),
           ),
           //checkout widget
-          if (cartController.courses.length != 0)
+          if (cartController.cartItems.length != 0)
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
+                  padding: EdgeInsets.all(10),
                   constraints: BoxConstraints(
                     maxHeight: double.infinity,
                   ),
-                  height: 75,
+                  height: 85,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       borderRadius:
@@ -339,20 +190,98 @@ class _MyCartWidgetState extends State<MyCartWidget> {
                       ),
                       Spacer(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 12.0, left: 6),
+                        padding: const EdgeInsets.only(
+                            top: 12.0, left: 6, right: 10),
                         child: MyButton(
                           placeHolder: 'Checkout',
+                          widthRatio: 0.4,
+                          isOval: true,
                           pressed: () {
                             MyNavigate.navigatejustpush(Checkout(), context);
                           },
                           isGradientButton: true,
-                          gradientColors: [myhomepageLightBlue, myhomepageBlue],
+                          gradientColors: myOrangeGradientTransparent,
                         ),
                       ),
                     ],
                   ),
                 )),
         ],
+      ),
+    );
+  }
+
+  Padding cartListWidget(cartItems, int index, CartService cartController) {
+    print('cartItems[index].imageUrl');
+    print(cartItems[index].imageUrl);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Container(
+        height: 92,
+        padding: EdgeInsets.only(left: 4, right: 16, top: 3, bottom: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.08),
+                offset: const Offset(
+                  5.0,
+                  5.0,
+                ),
+                blurRadius: 50.0,
+                spreadRadius: 2.0,
+              ),
+            ]),
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            ProfileUserWidget(
+              userId: cartItems[index].user_id,
+              // isUtilityType: true,
+              isCircular: false,
+              imageUrl: cartItems[index].imageUrl,
+              isUserSubtitle: true,
+              comment: cartItems[index].title,
+              containerWidthRatio: 0.73,
+              withGapBwText: true,
+              imageHeight: 60,
+              showbgColor: false,
+              imageWidth: 60,
+              // comment: widget.post.comments!.last['comment'],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "NGN" + cartItems[index].price,
+                  style: TextStyle(
+                    fontSize: 13, color: myhomepageBlue,
+                    // fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => cartController.removeCourse(cartItems[index]),
+                  child: Container(
+                    height: 22,
+                    width: 22,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        gradient: LinearGradient(
+                            colors: myOrangeGradientTransparent)),
+                    child: Center(
+                        child: Icon(
+                      IconlyBold.delete,
+                      color: Colors.white,
+                      size: 13,
+                    )),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

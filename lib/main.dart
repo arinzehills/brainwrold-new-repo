@@ -1,19 +1,21 @@
 import 'package:brainworld/components/bottomnavigation.dart';
 import 'package:brainworld/models/user.dart';
 import 'package:brainworld/services/auth_service.dart';
+import 'package:brainworld/services/cart_service.dart';
 import 'package:brainworld/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
+  final CartService controller = Get.put(CartService());
   @override
   Widget build(BuildContext context) {
     return FutureProvider<User?>.value(

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:brainworld/components/bottomnavigation.dart';
 import 'package:brainworld/components/course_tile_page.dart';
 import 'package:brainworld/components/drawer.dart';
 import 'package:brainworld/components/my_button.dart';
@@ -43,6 +45,8 @@ class _UploadCourseState extends State<UploadCourse> {
   String videoname = 'Add a Video';
   bool showUploadBox = false;
   bool showaddContentWidget = false;
+
+  bool loading = false;
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(
@@ -159,6 +163,7 @@ class _UploadCourseState extends State<UploadCourse> {
                       gradientColors: myOrangeGradientTransparent,
                       placeHolder: 'UPLOAD',
                       pressed: () async {
+                        setState(() => {loading = true});
                         var course = new Course(
                             usersid: user(context).id,
                             courseTitle: widget.courseinfo!.courseTitle,
@@ -174,8 +179,19 @@ class _UploadCourseState extends State<UploadCourse> {
                             video: widget.courseinfo!.video,
                             videos: videos);
                         print(course.usersid);
-                        var response = await CourseService().addCourse(course);
-                        print(response.body);
+                        loadingStatus(context, 'adding post..');
+
+                        var res = await CourseService().addCourse(course);
+                        var response = json.decode(res.body);
+                        print(response);
+                        if (response['success'] == true) {
+                          setState(() => loading = false);
+                          snackBar(BottomNavigation(), context,
+                              'Post added successfully');
+                        } else {
+                          setState(() => loading = false);
+                          setState(() => error = response['message']);
+                        }
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 18.0),

@@ -4,12 +4,21 @@ import 'package:brainworld/pages/chats/models/posts_model.dart';
 import 'package:flutter/material.dart';
 
 class VideoListWidget extends StatelessWidget {
-  VideoListWidget({Key? key, required this.course, this.subscribers})
+  VideoListWidget(
+      {Key? key,
+      required this.course,
+      this.video,
+      this.index,
+      this.subscribers})
       : super(key: key);
   final PostsModel course;
+  final video;
   int? subscribers;
+  int? index;
   @override
   Widget build(BuildContext context) {
+    print('video');
+    print(index);
     return Padding(
       padding: const EdgeInsets.only(left: 3.0),
       child: Container(
@@ -47,7 +56,7 @@ class VideoListWidget extends StatelessWidget {
                   width: size(context).width * 0.55,
                   // color: Colors.red,
                   child: Text(
-                    'Introduction',
+                    course.subTitles[index!],
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),

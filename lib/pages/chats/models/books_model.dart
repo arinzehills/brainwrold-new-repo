@@ -8,9 +8,9 @@ class BookModel {
   BookModel({
     this.id,
     this.usersId,
-    this.title,
+    required this.title,
     this.category,
-    this.price,
+    required this.price,
     this.bookCoverImageURL,
     this.bookURL,
     this.filename,
@@ -19,9 +19,9 @@ class BookModel {
 
   String? id;
   String? usersId;
-  String? title;
+  String title;
   String? category;
-  String? price;
+  String price;
   String? bookCoverImageURL;
   String? bookURL;
   String? filename;

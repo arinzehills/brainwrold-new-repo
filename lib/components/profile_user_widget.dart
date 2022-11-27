@@ -17,8 +17,11 @@ class ProfileUserWidget extends StatefulWidget {
       this.imageWidth,
       this.headerFontSize = 17,
       this.containerWidthRatio = 0.85,
+      this.skeltonWidth,
       this.tileGap,
+      this.subTitleColor,
       this.isUtilityType = false,
+      this.isCircular = true,
       this.isUserSubtitle = false,
       this.withGapBwText = false,
       this.showbgColor = true})
@@ -26,11 +29,14 @@ class ProfileUserWidget extends StatefulWidget {
   final String userId;
   final String? comment;
   final String? subTitle;
+  final subTitleColor;
+  final bool isCircular;
   final String? imageUrl;
   final containerWidthRatio;
   final double? imageHeight;
   final double? tileGap;
   final double? imageWidth;
+  final double? skeltonWidth;
   final double? headerFontSize;
   final bool isUtilityType;
   final bool isUserSubtitle;
@@ -85,17 +91,21 @@ class _ProfileUserWidgetState extends State<ProfileUserWidget> {
 
   Widget _buildProfile(loading) => loading
       ? Wrap(children: [
-          Skeleton(width: 70, height: 70),
+          Skeleton(
+              width: widget.skeltonWidth ?? 65,
+              height: widget.skeltonWidth ?? 65),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Skeleton(
-                width: size(context).width * 0.54,
+                width: size(context).width * 0.51,
               ),
               Skeleton(
                 width: size(context).width * 0.4,
               ),
-              Skeleton(width: 80, height: 12),
+              widget.skeltonWidth == null
+                  ? Skeleton(width: 80, height: 12)
+                  : SizedBox(),
             ],
           ),
         ])
@@ -106,7 +116,8 @@ class _ProfileUserWidgetState extends State<ProfileUserWidget> {
           horizontalTitleGap: widget.tileGap,
           leading: GestureDetector(
             child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(widget.isCircular ? 50 : 10)),
               child: MyCachedNetworkImage(
                 isProfile: true,
                 height: widget.imageHeight != null
@@ -119,8 +130,8 @@ class _ProfileUserWidgetState extends State<ProfileUserWidget> {
                     : widget.isUtilityType
                         ? 35
                         : 50,
-                imgUrl: user.profilePicture ??
-                    widget.imageUrl ??
+                imgUrl: widget.imageUrl ??
+                    user.profilePicture ??
                     'https://res.cloudinary.com/djsk1t9zp/image/upload/v1666397804/Books/haqv1lanbute2lb55w69.png',
               ),
             ),
@@ -131,6 +142,8 @@ class _ProfileUserWidgetState extends State<ProfileUserWidget> {
             children: [
               Text(
                 widget.comment ?? user.full_name,
+                overflow: TextOverflow.fade,
+                maxLines: 2,
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: widget.headerFontSize != 17
@@ -139,11 +152,11 @@ class _ProfileUserWidgetState extends State<ProfileUserWidget> {
               ),
               SizedBox(height: widget.withGapBwText ? 10 : null),
               Text(
-                widget.subTitle ??
-                    (widget.isUserSubtitle
-                        ? user.full_name
-                        : 'February 21, 2022'),
-                style: TextStyle(color: textGreyColor, fontSize: 13),
+                (widget.isUserSubtitle
+                    ? '${user.full_name}, ${widget.subTitle}'
+                    : widget.subTitle ?? 'February 21, 2022'),
+                style: TextStyle(
+                    color: widget.subTitleColor ?? textGreyColor, fontSize: 13),
               ),
             ],
           ),

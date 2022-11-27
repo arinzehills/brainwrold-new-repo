@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:brainworld/components/my_cachednetwork_image.dart';
+import 'package:brainworld/components/utilities_widgets/gradient_text.dart';
 import 'package:brainworld/components/utilities_widgets/loading.dart';
 import 'package:brainworld/components/utilities_widgets/my_navigate.dart';
+import 'package:brainworld/components/utilities_widgets/url_to_readable.dart';
 import 'package:brainworld/constants/constant.dart';
 import 'package:brainworld/pages/chats/models/books_model.dart';
+import 'package:brainworld/pages/chats/models/cart_model.dart';
 import 'package:brainworld/pages/fullresourcepage/full_pdf_page.dart';
 import 'package:brainworld/services/cart_service.dart';
 import 'package:brainworld/utils/pdf_util.dart';
@@ -37,11 +40,6 @@ class _HorizontalListViewState extends State<HorizontalListView> {
 
   // bool loading = false;
   Map<int, bool> loading = {};
-  urlToImageURL(String url) {
-    var pos = url.lastIndexOf('.');
-    String result = (pos != -1) ? url.substring(0, pos) : url;
-    return result + '.png';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +69,15 @@ class _HorizontalListViewState extends State<HorizontalListView> {
                     itemBuilder: (context, index) {
                       print(loading[1]);
                       String filename = widget.list[index].filename!;
+                      BookModel book = widget.list[index];
+                      CartModel cartModel = CartModel(
+                          user_id: book.usersId!,
+                          post_id: book.id,
+                          title: book.title,
+                          price: book.price,
+                          imageUrl: book.bookCoverImageURL,
+                          postType: 'book');
+
                       return Padding(
                           padding: const EdgeInsets.only(
                               top: 0.0, left: 5, right: 5, bottom: 5),
@@ -117,21 +124,23 @@ class _HorizontalListViewState extends State<HorizontalListView> {
                                         : MyCachedNetworkImage(
                                             imgUrl: widget.list[index]
                                                     .bookCoverImageURL ??
-                                                urlToImageURL(widget
-                                                    .list[index].bookURL!),
+                                                UrlToReadable.urlToReadableURL(
+                                                    widget.list[index].bookURL!,
+                                                    '.png'),
                                           ),
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(8.0)
+                                          .copyWith(bottom: 4),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            width: 85,
+                                            width: 95,
                                             child: Text(
-                                              widget.list[index].title ??
-                                                  filename,
-                                              textAlign: TextAlign.center,
+                                              widget.list[index].title ?? '',
+                                              textAlign: TextAlign.left,
+                                              maxLines: 2,
                                               style: TextStyle(
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -144,10 +153,16 @@ class _HorizontalListViewState extends State<HorizontalListView> {
                                           //     size: 12,
                                           //   ),
                                           widget.pageType == 'books'
-                                              ? Icon(
-                                                  Icons.add_shopping_cart,
-                                                  color: myhomepageBlue,
-                                                  size: 22,
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    cartController
+                                                        .addCourse(cartModel);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.add_shopping_cart,
+                                                    color: myhomepageBlue,
+                                                    size: 22,
+                                                  ),
                                                 )
                                               : Container(
                                                   padding: EdgeInsets.all(1.6),
@@ -165,7 +180,22 @@ class _HorizontalListViewState extends State<HorizontalListView> {
                                                 )
                                         ],
                                       ),
-                                    )
+                                    ),
+                                    if (widget.pageType == 'books')
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: GradientText(
+                                            'Price: N${widget.list[index].price}',
+                                            gradient: LinearGradient(
+                                                colors: myblueGradient),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                      )
                                   ],
                                 ),
                               ),

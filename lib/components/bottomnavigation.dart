@@ -6,7 +6,10 @@ import 'package:brainworld/pages/books_library/books_library.dart';
 import 'package:brainworld/pages/chats/chat.dart';
 import 'package:brainworld/pages/homepage.dart';
 import 'package:brainworld/pages/laboratory/laboratory.dart';
+import 'package:brainworld/pages/library/library.dart';
 import 'package:brainworld/pages/library/user_library.dart';
+import 'package:brainworld/pages/library/welcome/library_welcome.dart';
+import 'package:brainworld/pages/purchased/purchased.dart';
 import 'package:brainworld/pages/user/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,8 +59,8 @@ class _BottomNavigationState extends State<BottomNavigation>
       MyHomePage(
         title: 'Home',
       ),
-      // UserLibrary(),
-      Profile(),
+      // Purchased(),
+      Library(),
       Chat(
           // chatUsersListController: chatUsersListController,
           ),

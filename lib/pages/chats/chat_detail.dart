@@ -1,3 +1,4 @@
+import 'package:brainworld/components/profile_user_widget.dart';
 import 'package:brainworld/constants/constant.dart';
 import 'package:brainworld/controllers/chat_controller.dart';
 import 'package:brainworld/pages/chats/components/build_message_list.dart';
@@ -29,7 +30,6 @@ class ChatDetail extends StatefulWidget {
 }
 
 class _ChatDetailState extends State<ChatDetail> {
-  bool showimg = false;
   String groupChatId = '';
   final _controller = TextEditingController();
   ChatController chatController = ChatController();
@@ -63,7 +63,7 @@ class _ChatDetailState extends State<ChatDetail> {
         backgroundColor: Colors.white,
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 3),
             child: Row(
               children: <Widget>[
                 IconButton(
@@ -82,58 +82,14 @@ class _ChatDetailState extends State<ChatDetail> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 2,
-                ),
-                showimg
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(45),
-                        child: Image.network(
-                          'widget.imgUrl!',
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, object, stackTrace) {
-                            return ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                child: Image.asset(
-                                  "assets/images/green native.png",
-                                  height: 50,
-                                ));
-                          },
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        child: Image.asset(
-                          "assets/images/green native.png",
-                          height: 50,
-                        )),
-                SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        widget.name ?? '',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Online now",
-                        style:
-                            TextStyle(color: Color(0xff18DE4E), fontSize: 13),
-                      ),
-                    ],
-                  ),
-                ),
+                ProfileUserWidget(
+                    userId: widget.clickeduserid,
+                    subTitle: 'Online now',
+                    subTitleColor: Color(0xff18DE4E),
+                    headerFontSize: 16,
+                    withGapBwText: true,
+                    containerWidthRatio: 0.69,
+                    skeltonWidth: 50),
                 Icon(IconlyBold.call, color: iconsColor),
                 SizedBox(
                   width: 10,

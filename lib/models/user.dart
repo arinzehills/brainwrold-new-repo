@@ -4,6 +4,7 @@ class User {
   final String id;
   final String full_name;
   final String email;
+  final String? phone;
   final String? profilePicture;
   final String? password;
   String? token;
@@ -12,6 +13,7 @@ class User {
     required this.id,
     required this.full_name,
     required this.email,
+    this.phone,
     this.profilePicture,
     this.password,
     this.token,
@@ -21,6 +23,7 @@ class User {
         full_name: json['full_name'],
         profilePicture: json['profilePicture'],
         email: json['email'],
+        phone: json['phone'],
         token: json['token'],
       );
   Map<String, Object?> toJson() => {

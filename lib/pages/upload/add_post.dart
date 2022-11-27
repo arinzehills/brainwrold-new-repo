@@ -269,7 +269,7 @@ class _AddPostState extends State<AddPost> {
                                         title: title,
                                         caption: caption,
                                         image: image);
-                                    loadingStatus();
+                                    loadingStatus(context, 'uploading...');
                                     setState(() => loading = true);
                                     var res = await PostsService.addPost(post);
                                     var response = json.decode(res.body);
@@ -310,40 +310,6 @@ class _AddPostState extends State<AddPost> {
     print('book names ' + bookCoverName);
 
     // final fileExtension = Path.extension(file!.path);
-  }
-
-  Future loadingStatus() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        content: Container(
-          height: 127,
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/girlwithpc.png',
-                height: 65,
-                width: 90,
-              ),
-              CircularProgressIndicator(
-                color: myhomepageBlue,
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Text(
-                'adding post...',
-                style: TextStyle(color: myhomepageBlue),
-              ),
-            ],
-          )),
-        ),
-      ),
-    );
   }
 
   void _showModalBottomSheet(context, uid, docid) {

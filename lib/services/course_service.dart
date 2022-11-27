@@ -42,12 +42,22 @@ class CourseService {
     );
 
     request.files.add(videomultipart);
-
+    // request.fields['subTitles'] = course.subTitles;
+    for (int i = 0; i < course.subTitles.length; i++) {
+      // request.fields['subTitles[$i]'] = '${course.subTitles[i]}';
+      request.files.add(http.MultipartFile.fromString(
+        'subTitles',
+        i.toString(),
+      ));
+    }
+    request.fields['subTitles[n]'] = "${course.subTitles}";
     request.fields['title'] = course.courseTitle;
     request.fields['caption'] = course.description!;
     request.fields['price'] = course.price;
     request.fields['category'] = course.category!;
     request.headers['x-access-token'] = user.token!;
+    request.fields['postedOn'] = DateTime.now().toString();
+
     var streamedResponse = await request.send();
 
     var response = await http.Response.fromStream(streamedResponse);

@@ -1,5 +1,6 @@
 import 'package:brainworld/constants/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyTextField extends StatefulWidget {
   String hintText;
@@ -14,6 +15,7 @@ class MyTextField extends StatefulWidget {
   IconButton? suffixIconButton;
   Icon? prefixIcon;
   String? Function(String?)? validator;
+  bool isNumberOnly;
 
   // IconButton(
   //                                             icon: const Icon(Icons.visibility),
@@ -41,6 +43,7 @@ class MyTextField extends StatefulWidget {
     this.obscureText,
     this.validator,
     this.autovalidate,
+    this.isNumberOnly = false,
     this.onTap,
     this.onChanged,
     this.keyboardType,
@@ -58,6 +61,9 @@ class _MyTextFieldState extends State<MyTextField> {
       // autovalidate: widget.autovalidate!,
       initialValue: widget.initiaiValue,
       keyboardType: widget.keyboardType,
+      inputFormatters: widget.isNumberOnly
+          ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+          : null,
       cursorHeight: 23,
       onTap: widget.onTap,
       obscureText: widget.obscureText ?? false,

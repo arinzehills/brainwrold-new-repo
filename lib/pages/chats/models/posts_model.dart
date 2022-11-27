@@ -43,7 +43,7 @@ class PostsModel {
   File? image;
   String? imageUrl;
   String? postedOn;
-  final List<String> subTitles; //they are 14
+  final List<dynamic> subTitles; //they are 14
   List<dynamic>? likes = [];
   List<dynamic>? comments = [];
   final List? fileUrls;
@@ -57,11 +57,14 @@ class PostsModel {
         imageUrl: json["image"],
         videoURL: json['video'],
         caption: json["caption"],
+        requirements: json["requirements"],
         postType: json["postType"],
         category: json["caption"],
         title: json["title"],
         postedOn: MyDateFormatter.dateFormatter(
-            datetime: DateTime.parse(json['postedOn']), showHours: true),
+          datetime:
+              DateTime.parse(json['postedOn'] ?? '2022-11-02 19:10:31.998691'),
+        ),
         likes: json["likes"],
         comments: json["comments"],
         fileUrls: json["fileUrls"],
@@ -70,14 +73,17 @@ class PostsModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "title": title,
         "user_id": user_id,
+        "post_id": post_id,
         "images": image,
+        "imageUrl": imageUrl,
+        "price": price,
         "postedOn": postedOn,
         "caption": caption,
         "postType": postType,
         "category": category,
         "likes": likes,
         "comments": comments,
-        "title": title
       };
 }

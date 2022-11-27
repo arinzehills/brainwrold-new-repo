@@ -2,10 +2,12 @@ import 'package:intl/intl.dart';
 
 class MyDateFormatter {
   static format(format, datetime) => DateFormat(format).format(datetime);
-  static String dateFormatter(
-      {required DateTime datetime, bool showHours = false}) {
-    String dateNow = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    String datetimeFormat = DateFormat('yyyy-MM-dd').format(datetime);
+  static String dateFormatter({
+    required DateTime datetime,
+    bool showHours = false,
+  }) {
+    String dateNow = DateFormat('dd LLLL,yyyy').format(DateTime.now());
+    String datetimeFormat = DateFormat('dd LLLL,yyyy').format(datetime);
     final yesterday = DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day - 1);
     //single day comparison
@@ -22,8 +24,8 @@ class MyDateFormatter {
         }
       }
       return 'Today at ${format('KK:mm a', datetime)}';
-    } else if (format('yyyy-MM-dd', yesterday) ==
-        format('yyyy-MM-dd', datetime)) {
+    } else if (format('dd LLLL,yyyy', yesterday) ==
+        format('dd LLLL,yyyy', datetime)) {
       return 'Yesterday at ${format('KK:mm a', datetime)}';
     } else {
       return datetimeFormat;

@@ -60,6 +60,9 @@ class PostsService {
     request.fields['title'] = post.title!;
     request.fields['caption'] = post.caption!;
     request.headers['x-access-token'] = user.token!;
+    request.fields['postedOn'] = DateTime.now().toString();
+    // request.fields['postedOn'] = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1).toString();
+
     var streamedResponse = await request.send();
 
     var response = await http.Response.fromStream(streamedResponse);

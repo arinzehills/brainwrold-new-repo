@@ -2,11 +2,13 @@
 
 import 'package:brainworld/components/course_tile_page.dart';
 import 'package:brainworld/components/drawer.dart';
+import 'package:brainworld/components/expandable_text_widget.dart';
 import 'package:brainworld/components/my_button.dart';
 import 'package:brainworld/components/profile_user_widget.dart';
 import 'package:brainworld/components/utilities_widgets/gradient_text.dart';
 import 'package:brainworld/components/utilities_widgets/my_navigate.dart';
 import 'package:brainworld/components/utilities_widgets/radial-gradient.dart';
+import 'package:brainworld/components/utilities_widgets/url_to_readable.dart';
 import 'package:brainworld/components/video_list_widget.dart';
 import 'package:brainworld/constants/constant.dart';
 import 'package:brainworld/controllers/chat_controller.dart';
@@ -110,6 +112,7 @@ class _CourseDescPageState extends State<CourseDescPage> {
     //   return courseTile2;
     // });
     print(widget.course.videoURL);
+    print(UrlToReadable.videoUrlToReadableURL(widget.course.videoURL!, '.mp4'));
     return Scaffold(
       drawer: MyDrawer(),
       key: _scaffoldKey,
@@ -153,7 +156,8 @@ class _CourseDescPageState extends State<CourseDescPage> {
                         widget.course.videoURL != null
                             ? NetworkPlayerWidget(
                                 videoName: 'Course preview Video',
-                                videoUrl: widget.course.videoURL!,
+                                videoUrl: UrlToReadable.videoUrlToReadableURL(
+                                    widget.course.videoURL!, '.mp4'),
                               )
                             : Container(
                                 width: double.infinity,
@@ -177,10 +181,11 @@ class _CourseDescPageState extends State<CourseDescPage> {
                               Row(
                                 children: [
                                   ProfileUserWidget(
-                                    userId: '635f29b3ef13b39831cb7c4c',
+                                    userId: widget.course.user_id!,
                                     comment: toBeginningOfSentenceCase(
                                             widget.course.title) ??
                                         '',
+                                    subTitle: widget.course.postedOn,
                                     showbgColor: true,
                                     containerWidthRatio: 0.807,
                                     // subTitle: ,
@@ -219,15 +224,10 @@ class _CourseDescPageState extends State<CourseDescPage> {
                                   ),
                                 ],
                               ),
-                              Text(
-                                widget.course.caption ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 4,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: ExpandableTextWidget(
+                                    text: widget.course.caption ?? ''),
                               ),
                               reactionRow(user),
                               buildText(
@@ -307,11 +307,13 @@ class _CourseDescPageState extends State<CourseDescPage> {
                                   children: widget.course.videoUrls!
                                       .map((video) => Obx(
                                             () => VideoListWidget(
-                                              subscribers:
-                                                  chatUsersListController
-                                                      .subscribers.length,
-                                              course: widget.course,
-                                            ),
+                                                subscribers:
+                                                    chatUsersListController
+                                                        .subscribers.length,
+                                                course: widget.course,
+                                                video: video,
+                                                index: widget.course.videoUrls!
+                                                    .indexOf(video)),
                                           ))
                                       .toList())
                             ],

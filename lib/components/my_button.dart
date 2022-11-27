@@ -12,12 +12,15 @@ class MyButton extends StatelessWidget {
   final VoidCallback pressed;
   Widget? child;
 
+  double? fontSize;
+
   MyButton({
     required this.placeHolder,
     this.child,
     this.isOval = false,
     this.withBorder = false,
     this.height,
+    this.fontSize,
     this.widthRatio,
     this.isGradientButton = false,
     this.loadingState = false,
@@ -65,7 +68,8 @@ class MyButton extends StatelessWidget {
                     Text(
                       placeHolder,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 23),
+                      style: TextStyle(
+                          color: Colors.white, fontSize: fontSize ?? 23),
                     ),
                     child ?? SizedBox(),
                   ],

@@ -11,6 +11,9 @@ import 'package:brainworld/pages/classroom/class_room_welcome.dart';
 import 'package:brainworld/pages/homepage.dart';
 import 'package:brainworld/pages/laboratory/laboratory.dart';
 import 'package:brainworld/pages/library/user_library.dart';
+import 'package:brainworld/pages/orders/orders.dart';
+import 'package:brainworld/pages/polls/polls.dart';
+import 'package:brainworld/pages/purchased/purchased.dart';
 import 'package:brainworld/pages/user/profile.dart';
 import 'package:brainworld/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -88,25 +91,37 @@ class _MyDrawerState extends State<MyDrawer> {
             index: 0,
             title: 'Home',
           ),
+
+          buildMenuItem(
+              context: context,
+              index: 1,
+              isCustomRouting: true,
+              route: Polls(),
+              title: 'Polls'),
           buildMenuItem(
               context: context,
               isCustomRouting: true,
-              index: 7,
-              route: UserLibrary(),
-              title: 'My Library'),
-          buildMenuItem(context: context, index: 1, title: 'Library'),
-          buildMenuItem(context: context, index: 2, title: 'Chats'),
-          buildMenuItem(context: context, index: 3, title: 'Lab'),
-          buildMenuItem(context: context, index: 4, title: 'Books'),
-          buildMenuItem(context: context, index: 5, title: 'Profile'),
+              index: 9,
+              route: Purchased(),
+              title: 'Purchased'),
+          // buildMenuItem(context: context, index: 2, title: 'Chats'),
+          // buildMenuItem(context: context, index: 3, title: 'Lab'),
+          // buildMenuItem(context: context, index: 4, title: 'Books'),
+          // buildMenuItem(context: context, index: 5, title: 'Profile'),
           buildMenuItem(
               context: context,
               index: 6,
               title: 'Class room',
               isCustomRouting: false,
               route: ClassRoomWelcome()),
+          buildMenuItem(
+              context: context,
+              index: 8,
+              title: 'Orders',
+              isCustomRouting: false,
+              route: Orders()),
           MyButton(
-              placeHolder: 'Log out',
+              placeHolder: 'Logout',
               // isOval: true,
               isGradientButton: true,
               gradientColors: myOrangeGradientTransparent,
@@ -127,6 +142,7 @@ class _MyDrawerState extends State<MyDrawer> {
     return Padding(
       padding: const EdgeInsets.only(top: 0.6, bottom: 0.9),
       child: ListTile(
+        visualDensity: VisualDensity(vertical: 1),
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 0.5, color: myhomepageBlue),
         ),
@@ -136,7 +152,7 @@ class _MyDrawerState extends State<MyDrawer> {
         title: Center(
           child: GradientText(
             title ?? 'Library ',
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 25),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

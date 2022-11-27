@@ -12,6 +12,7 @@ class IsNewUserModel {
       required this.newlyRegistered,
       required this.bookLib,
       required this.lab,
+      required this.library,
       required this.classRoom,
       required this.chat,
       this.message,
@@ -21,6 +22,7 @@ class IsNewUserModel {
   String? username;
   bool? newlyRegistered;
   bool? bookLib;
+  bool library;
   bool? lab;
   bool? classRoom;
   bool? chat;
@@ -32,6 +34,7 @@ class IsNewUserModel {
         username: json["username"],
         newlyRegistered: json["newlyRegistered"],
         bookLib: json["bookLib"],
+        library: json["library"],
         lab: json["lab"],
         classRoom: json["classRoom"],
         chat: json["chat"],
@@ -44,6 +47,7 @@ class IsNewUserModel {
         "username": username,
         "newlyRegistered": newlyRegistered,
         "bookLib": bookLib,
+        "library": library,
         "lab": lab,
         "chat": chat,
         "classRoom": classRoom,
