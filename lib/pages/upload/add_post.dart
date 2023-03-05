@@ -84,15 +84,17 @@ class _AddPostState extends State<AddPost> {
                   children: [
                     Container(
                       height: 45,
-                      child: RaisedButton(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: myhomepageBlue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(23)),
+                        ),
                         child: Text(
                           'No',
                           style: TextStyle(
                               color: Colors.white, fontFamily: 'Roboto'),
                         ),
-                        color: myhomepageBlue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(23)),
                         onPressed: () => {
                           // status==true ? _emailSuccess(context) : _emailFailure(context)
                         },
@@ -100,15 +102,17 @@ class _AddPostState extends State<AddPost> {
                     ),
                     Container(
                       height: 45,
-                      child: RaisedButton(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(23)),
+                        ),
                         child: Text(
                           'Yes',
                           style: TextStyle(
                               color: Colors.white, fontFamily: 'Roboto'),
                         ),
-                        color: Colors.red,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(23)),
                         onPressed: () => {
                           // Navigator.of(context).popUntil((_) => count++ >= 2),
                         },

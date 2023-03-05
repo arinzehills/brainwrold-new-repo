@@ -108,10 +108,14 @@ class _MyCartWidgetState extends State<MyCartWidget> {
                   SizedBox(
                     width: 60,
                   ),
-                  OutlineButton(
-                    color: myhomepageBlue,
-                    disabledBorderColor: myhomepageLightOrange,
-                    borderSide: BorderSide(color: myhomepageBlue),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: myhomepageBlue,
+                      // disabledBorderColor: myhomepageLightOrange,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: myhomepageBlue),
+                      ),
+                    ),
                     onPressed: () {
                       cartController.removeAllCourses();
                     },

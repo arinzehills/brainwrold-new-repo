@@ -30,13 +30,15 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return TextButton(
       onPressed: loadingState ? null : pressed,
-      disabledColor: Colors.orange,
-      disabledTextColor: Colors.white,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(isOval ? 80.0 : 0.0)),
-      padding: const EdgeInsets.all(0.0),
+      style: TextButton.styleFrom(
+        // disabledColor: Colors.orange,
+        // disabledTextColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(isOval ? 80.0 : 0.0)),
+        padding: const EdgeInsets.all(0.0),
+      ),
       child: Ink(
         width: MediaQuery.of(context).size.width * (widthRatio ?? 0.9),
         height: height ?? 62,

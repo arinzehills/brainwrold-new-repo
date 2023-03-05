@@ -153,6 +153,8 @@ class AuthService {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
 
     var userString = localStorage.getString('user');
+
+    // if (userString == null) return User(id: id, full_name: full_name, email: email);
     // print(userJson);
     var userJson = json.decode(userString!);
     // print(user['_id']);

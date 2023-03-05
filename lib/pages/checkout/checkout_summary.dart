@@ -8,7 +8,7 @@ import 'package:brainworld/pages/chats/models/cart_model.dart';
 import 'package:brainworld/pages/chats/models/order_info.dart';
 import 'package:brainworld/pages/upload/course/model/course.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterwave/flutterwave.dart';
+// import 'package:flutterwave/flutterwave.dart';
 import 'package:get/get.dart';
 import '../../components/bottomnavigation.dart';
 import '../../services/cart_service.dart';
@@ -198,35 +198,35 @@ class _CheckoutSummaryState extends State<CheckoutSummary> {
   }
 
   _handlePaymentInitialization() async {
-    final flutterwave = Flutterwave.forUIPayment(
-      amount: cartController.total,
-      currency: FlutterwaveCurrency.NGN,
-      context: this.context,
-      publicKey: "FLWPUBK_TEST-b6fec30caf684ee6845762074efb8ce3-X",
-      encryptionKey: 'FLWSECK_TESTa753a5576d98',
-      email: user(context).email,
-      fullName: user(context).full_name,
-      txRef: DateTime.now().toIso8601String(),
-      narration: "Brain World academy",
-      isDebugMode: true,
-      phoneNumber: widget.phone,
-      acceptCardPayment: true,
-    );
-    final response = await flutterwave.initializeForUiPayments();
-    if (response != null) {
-      print(response.data!.status);
-      // setState(() {
-      //   loading = true;
-      // });
-      if (response.data!.status == 'successful') {
-        final List<CartModel> cartItem = cartController.cartItems.keys.toList();
-        CartService.purchaseCourse(cartItem, context);
-        setState(() {
-          orderStatus = true;
-        });
-      }
-    } else {
-      Get.snackbar("No Response!", 'You cancelled the purchase');
-    }
+    // final flutterwave = Flutterwave.forUIPayment(
+    //   amount: cartController.total,
+    //   currency: FlutterwaveCurrency.NGN,
+    //   context: this.context,
+    //   publicKey: "FLWPUBK_TEST-b6fec30caf684ee6845762074efb8ce3-X",
+    //   encryptionKey: 'FLWSECK_TESTa753a5576d98',
+    //   email: user(context).email,
+    //   fullName: user(context).full_name,
+    //   txRef: DateTime.now().toIso8601String(),
+    //   narration: "Brain World academy",
+    //   isDebugMode: true,
+    //   phoneNumber: widget.phone,
+    //   acceptCardPayment: true,
+    // );
+    // final response = await flutterwave.initializeForUiPayments();
+    // if (response != null) {
+    //   print(response.data!.status);
+    //   // setState(() {
+    //   //   loading = true;
+    //   // });
+    //   if (response.data!.status == 'successful') {
+    //     final List<CartModel> cartItem = cartController.cartItems.keys.toList();
+    //     CartService.purchaseCourse(cartItem, context);
+    //     setState(() {
+    //       orderStatus = true;
+    //     });
+    //   }
+    // } else {
+    //   Get.snackbar("No Response!", 'You cancelled the purchase');
+    // }
   }
 }
