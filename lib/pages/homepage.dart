@@ -143,17 +143,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       : Loading(),
                 ),
-                TextButton(
-                    onPressed: () {
-                      var random = Random();
-                      // String randoom = (random.nextInt(1000) + 1000).toString();
-                      String randoom = '8754873';
-                      _jitsiMeet.createMeeting(
-                          roomName: 'BrainWorld$randoom',
-                          isAudioMuted: true,
-                          isVideoMuted: true);
-                    },
-                    child: const Text('Join Class'))
+                // TextButton(
+                //     onPressed: () {
+                //       var random = Random();
+                //       // String randoom = (random.nextInt(1000) + 1000).toString();
+                //       String randoom = '8754873';
+                //       _jitsiMeet.createMeeting(
+                //           roomName: 'BrainWorld$randoom',
+                //           isAudioMuted: true,
+                //           isVideoMuted: true);
+                //     },
+                //     child: const Text('Join Class'))
               ],
             ),
           ),
