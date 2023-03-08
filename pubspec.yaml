@@ -55,6 +55,8 @@ dependencies:
   video_player: ^2.4.3
   intl: ^0.18.0
   google_fonts: ^4.0.3
+  jitsi_meet_v1: ^5.0.0
+
 
 dev_dependencies:
   flutter_test:

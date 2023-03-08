@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'join_class.dart';
+
 class ClassRoomWelcome extends StatefulWidget {
   const ClassRoomWelcome({
     Key? key,
@@ -108,8 +110,11 @@ class _ClassRoomWelcomeState extends State<ClassRoomWelcome> {
                   "assets/images/student.png",
                   height: 240,
                 ),
+                const SizedBox(height: 20),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(JoinAClass());
+                  },
                   child: Text(
                     'Join Classroom',
                     style: TextStyle(
@@ -118,9 +123,7 @@ class _ClassRoomWelcomeState extends State<ClassRoomWelcome> {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 20),
                 MyButton(
                   placeHolder: 'Start new class',
                   height: 55,

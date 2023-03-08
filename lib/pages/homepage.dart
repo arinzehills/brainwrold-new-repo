@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:brainworld/components/course_tile.dart';
 import 'package:brainworld/components/drawer.dart';
 import 'package:brainworld/components/myappbar.dart';
@@ -14,6 +16,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
+import '../utils/jitsi_meet_methods.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -23,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final JitsiMeetMethods _jitsiMeet = JitsiMeetMethods();
   PostsController chatUsersListController = PostsController();
   bool loading = false;
   late Socket socket;
@@ -138,6 +143,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       : Loading(),
                 ),
+                TextButton(
+                    onPressed: () {
+                      var random = Random();
+                      // String randoom = (random.nextInt(1000) + 1000).toString();
+                      String randoom = '8754873';
+                      _jitsiMeet.createMeeting(
+                          roomName: 'BrainWorld$randoom',
+                          isAudioMuted: true,
+                          isVideoMuted: true);
+                    },
+                    child: const Text('Join Class'))
               ],
             ),
           ),
